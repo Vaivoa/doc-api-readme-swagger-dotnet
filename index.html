@@ -1,0 +1,252 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Documentação de APIs com o Readme</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="Google Analytics ID"
+                  id="doc-api-readme"
+                  title="Documentação de APIs com o Readme"
+                  environment="web"
+                  feedback-link="A link where users can go to provide feedback (Maybe the git repo)">
+    
+      <google-codelab-step label="Início" duration="2">
+        <p>Já encerrou o desenvolvimento de suas APIs e precisou apresentar os resultados para algumas dessas pessoas?</p>
+<ul>
+<li>Cliente;</li>
+<li>Novos desenvolvedores que precisam entender a regra de negócio, ou mesmo para a</li>
+<li>Comunidade externa, de maneira pública.</li>
+</ul>
+<p>Com certeza a resposta será &#34;sim&#34; para pelo menos um desses. Então vem a sua mente usar o Swagger, e é isso, lá já temos os endpoints, com os verbos HTTP, os tipos de parâmetros, até mesmo autenticação. E sim, essa é uma ferramenta incrível, não temos dúvida.</p>
+<p class="image-container"><img alt="Swagger da Abordagem 2" src="img\\c7445e10ae0f0890.png"></p>
+<p>Mas e se você quisesse deixar claro a regra de negócio da sua API? Se fosse do seu interesse que quem estivesse fazendo chamadas para sua aplicação entendesse o porquê das coisas? Já sei, você pensaria em criar um blog explicando esses pontos? Ok, compreensível, mas lá do seu blog você permitirá que sejam feitas requisições para sua API?</p>
+<p>Aqui temos uma alternativa que facilita a apresentação do backend de maneira mais amigável, possibilita a geração de requisições para seus endpoints em diversas linguagens de programação e ainda fornece métricas sobre a utilização de sua documentação. Essa alternativa chama-se Readme. Nunca ouviu falar? Não tem problema, você vai poder acompanhar o tutorial mesmo assim.</p>
+<p>E para isso vamos tratar o assunto em duas abordagens:</p>
+<ul>
+<li>A primeira é como fazer a publicação da documentação da sua API no Readme manualmente. Aqui vamos usar um projeto open source como exemplo, portanto você vai conseguir seguir o passo a passo para o caso de já ter um projeto pronto.</li>
+<li>A segunda está voltada para a documentação da API no Readme de um projeto em .NET do zero, aqui vamos ter a possibilidade de usar Github Actions e Azure Pipelines para automatização da publicação da sua documentação.</li>
+</ul>
+<p>E aí, ficou animado? Então vamos lá!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="O projeto" duration="2">
+        <p>Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o repositório no Github ‣. Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:</p>
+<p class="image-container"><img alt="Estrutura de Pastas do Projeto a ser documentado" src="img\\de959f7d5d7c9174.png"></p>
+<p>Temos aqui uma camada de Models onde se encontram as classes Treino e o DTO que será utilizado na requisição. Para fins didáticos utilizamos uma classe TreinoRepository que serve somente para fornecer uma lista de Treinos para os endpoints que se encontram na Camada Controllers. Vamos então ver o que há nos nossos endpoints:</p>
+<pre><code language="language-csharp" class="language-csharp">[ApiController]
+[Route(&#34;[controller]&#34;)]
+public class TreinoControler : ControllerBase
+{
+	private readonly TreinoRepository _repository;
+
+  public TreinoControler(TreinoRepository repository)
+  {
+	  _repository = repository;
+  }
+
+ [HttpGet]
+ public  IActionResult ObterTodosTreinos()
+ {
+	 return Ok(_repository.ObterTodos());
+ }
+
+ [HttpPost]
+ public IActionResult NovoTreino(TreinoDto treinoDto)
+ {
+	 Treino treino = new Treino(treinoDto.Name, treinoDto.Repeticoes);
+	 _repository.InserirTreino(treino);        
+   return Ok(treino);
+ }
+}
+</code></pre>
+<p>Como vamos precisar acessar a lista de Treinos, precisamos injetar o TreinoRepository no construtor da nossa Controller, lembrando que isso só foi possível porque fizemos o registro do repositório na nossa Startup.cs:</p>
+<pre><code language="language-csharp" class="language-csharp">public void ConfigureServices(IServiceCollection services)
+{
+  ...
+	services.AddSingleton&lt;TreinoRepository&gt;();
+}
+</code></pre>
+<p>Nossos dois <em>endpoints</em> usam os verbos <em>GET</em> e <em>POST</em> do protocolo <em>HTTP,</em> portanto com o método <em>ObterTodosTreinos</em> listamos todos os itens de Treino e com o método <em>NovoTreino</em> inserimos novos itens à lista.</p>
+<p>Na página seguinte damos início à configuração do Swagger</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configurando o Swagger no projeto" duration="5">
+        <p>Inicialmente devemos instalar o pacote do Swashbuckle.AspNetCore (Swagger) no projeto da API da solução. Para o .Net5, deve-se utilizar a versão 5.6.3 do Swashbucke.AspNetCore (para o .Net6 deve-se utilizar a versão 6.2.3):</p>
+<pre><code language="language-xml" class="language-xml">&lt;Project Sdk=&#34;Microsoft.NET.Sdk.Web&#34;&gt;
+	...
+	&lt;ItemGroup&gt;
+		&lt;PackageReference Include=&#34;Swashbuckle.AspNetCore&#34; Version=&#34;5.6.3&#34; /&gt;
+	&lt;/ItemGroup&gt;
+	...
+&lt;/Project&gt;
+</code></pre>
+<p>Uma possibilidade adicional do Swagger é a adição de um arquivo .xml que facilita documentar cada endpoint, para gerar este arquivo .xml na compilação do projeto basta adicionar o seguinte parâmetro no Property Group do .csproj:</p>
+<pre><code language="language-xml" class="language-xml">...
+&lt;PropertyGroup&gt;
+	&lt;GenerateDocumentationFile&gt;True&lt;/GenerateDocumentationFile&gt;
+&lt;/PropertyGroup&gt;
+...
+</code></pre>
+<p>Uma vez instalado o pacote, devemos inicializar a configuração do Swagger na Startup do projeto:</p>
+<pre><code language="language-chsarp" class="language-chsarp">app.,public void ConfigureServices(IServiceCollection services)
+{
+		...
+    services.AddSwaggerGen(c =&gt;
+            {
+                c.SwaggerDoc(&#34;v1&#34;, new OpenApiInfo
+                {
+                    Title = &#34;CrescimentoExponencial&#34;,
+                    Version = &#34;v1&#34;
+                });
+                c.SwaggerGeneratorOptions.Servers =
+                    new List&lt;OpenApiServer&gt; {
+                    new OpenApiServer {Url = &#34;https://localhost:5001&#34; },
+                    new OpenApiServer {Url = &#34;https://localhost:44395&#34; },
+                    new OpenApiServer {Url = &#34;http://www.customdomain.com&#34; }
+                    };
+                string xmlFile = $&#34;{Assembly.GetExecutingAssembly().GetName().Name}.xml&#34;;
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(filePath);
+            });
+			...
+}
+</code></pre>
+<p>Onde List é a lista que contempla as diversas url que podem estar no projeto (Produção, Desenvolvimento, Stagging, etc)</p>
+<p>E c.IncludeXmlComments(filePath) aponta para localização física do .xml gerado na compilação</p>
+<p>Finalmente devemos configurar o middleware do Swagger.</p>
+<pre><code language="language-chsarp" class="language-chsarp">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+	...
+  app.UseSwagger();
+  app.UseSwaggerUI(c =&gt; 
+	c.SwaggerEndpoint(&#34;/swagger/v1/swagger.json&#34;, &#34;CrescimentoExponencial v1&#34;));
+  ...
+}
+</code></pre>
+<p>Uma vez adicionado a criação do xml na compilação do projeto, basta comentar as Models e Controllers com as tags de xml, como demonstrado nos exemplos abaixo:</p>
+<pre><code language="language-chsarp" class="language-chsarp">public class TreinoDto
+    {
+        ...
+        /// &lt;example&gt;
+        /// Supino reto
+        /// &lt;/example&gt;
+        public string Name { get; set; }
+
+        /// &lt;example&gt;
+        /// 15
+        /// &lt;/example&gt;
+        public int Repeticoes { get; set; }
+				...
+    }
+</code></pre>
+<pre><code language="language-chsarp" class="language-chsarp">public class TreinosController : ControllerBase
+    {
+				...
+        /// &lt;summary&gt;
+        /// Obter todos os treinos
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        [HttpGet]
+        public async Task&lt;IActionResult&gt; ObterTodosTreinos()
+        {
+            return Ok(_repository.ObterTodos());
+        }
+
+        /// &lt;summary&gt;
+        /// Cadastra novo treino
+        /// &lt;/summary&gt;
+        /// &lt;param name=&#34;treinoDto&#34;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        [HttpPost]
+        public async Task&lt;IActionResult&gt; NovoTreino(TreinoDto treinoDto)
+        {
+            Treino treino = new Treino(treinoDto.Name, treinoDto.Repeticoes);
+            await _repository.InserirTreino(treino);
+            return Ok(treino);
+        }
+				...
+    }
+</code></pre>
+<p>Após a devida instalação do swagger, ao rodar o programa ele irá exibir esta interface no https://localhost:5001/swagger</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\8896cdc5138276e5.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Iniciando o SwaggerCli na solução" duration="1">
+        <p>O SwaggerCli é uma ferramenta que permite gerar o .json do swagger2.0 ou OpenAPI3.0 na compilação do projeto.</p>
+<p>Para instalar a ferramenta inicialmente devemos criar o arquivo de manifesto na raiz da solução.</p>
+<pre><code language="language-bash" class="language-bash">dotnet new tool-manifest
+</code></pre>
+<p>Uma vez criado o arquivo de manifesto, podemos instalar a ferramenta Swashbuckle.AspNetCore.Cli (para o .Net6 deve-se utilizar a versão 6.2.3):</p>
+<pre><code language="language-bash" class="language-bash">dotnet tool install --version 5.6.3 Swashbuckle.AspNetCore.Cli
+</code></pre>
+<p>Uma vez instalado o Swashbuckle.AspNetCore.Cli, devemos especificar em nosso projeto que o swagger.json deve ser criado e atualizado todas as vezes que o projeto for compilado:</p>
+<pre><code language="language-xml" class="language-xml">&lt;Target Name=&#34;PostBuild&#34; AfterTargets=&#34;PostBuildEvent&#34;&gt;
+		&lt;Exec Command=&#34;dotnet tool restore&#34; /&gt;
+		&lt;Exec Command=&#34;dotnet swagger tofile --output swagger.json $(OutputPath)\$(AssemblyName).dll v1&#34; /&gt;
+&lt;/Target&gt;
+</code></pre>
+<p>Com isto já temos o swagger.json pronto para ser utilizado no readme.com</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Documentando no Readme" duration="2">
+        <p>Efetue o seu cadastro na plataforma aqui, após o registro você pode realizar login e terá acesso a uma página como esta:</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\d08bfd07bdc8a4ed.png"></p>
+<p>Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\1d424ba4cd995e42.png"></p>
+<p>Surgirá a tela abaixo, é só clicar em OpenAPI Upload</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\2774f986bc5756fa.png"></p>
+<h2 is-upgraded>GitHub Actions</h2>
+<p>Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\99ade375b726ea97.png"></p>
+<p>Para isso crie, na raiz do projeto, uma pasta com o nome .github e a subpasta workflows. Dentro desta subpasta crie o arquivo readme.yml (o nome tanto faz, desde que a extensão seja .yml ou .yaml) e cole. Neste arquivo, cole o conteúdo que aparece na imagem acima, e você deve ter o resultado como na figura abaixo:</p>
+<p class="image-container"><img alt="Estrutura do projeto com configuração de pipeline" src="img\\1cabd584d1602f10.png"></p>
+<h3 is-upgraded>🚨 ATENÇÃO 🚨</h3>
+<p>Se o seu repositório no Github for público não exponha a sua readme-oas-key, aqui nós usamos Secrets do Github. Isso também é simples de se fazer, vejamos como realizar o cadastro de uma secret em um repositório remoto:</p>
+<p class="image-container"><img alt="Repositório do Github aba Settings" src="img\\1cabd584d1602f10.png"></p>
+<p>Navegando para aba Settings e em seguida clicando em Secrets, clique em Actions, aparecerá a tela a seguir, agora clique em New Repository Secret:</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\4812fa8082f1876c.png"></p>
+<p>No campo Name digite README_OAS_KEY e no campo Value cole o valor da chave que aparece no seu arquivo readme.yml, agora clique em Add Secret e está feito. Se estiver achando confuso, nessa página clique em Public Repo? E o arquivo já virá configurado para usar Secrets.</p>
+<h3 is-upgraded>🚨 ATENÇÃO 🚨</h3>
+<p>Altere o nome da branch no arquivo readme.yml para os nomes das suas branches no Github, nesse nosso caso, ao se fazer um push na branch criando-pipeline para o repositório remoto, copiaremos automaticamente o arquivo swagger.json para nosso projeto no Readme.</p>
+<h2 is-upgraded>Azure Pipelines</h2>
+<p>E se você estiver usando o Azure DevOps e quiser fazer a publicação da documentação pelo Azure Pipelines? Não há com o que se preocupar, vamos ver como essa tarefa também pode ser simplificada.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

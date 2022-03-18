@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-03-11T15:52:07-03:00",
+  "id": "doc-api-readme",
+  "duration": 12,
+  "title": "Documentação de APIs com o Readme",
+  "summary": "Documentação de APIs com o Readme",
+  "source": "doc-api-readme.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "A link where users can go to provide feedback (Maybe the git repo)",
+  "ga": "Google Analytics ID",
+  "url": "doc-api-readme"
+}
