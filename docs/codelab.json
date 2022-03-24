@@ -3,8 +3,8 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-03-11T15:52:07-03:00",
-  "id": "doc-api-readme",
+  "updated": "2022-03-23T22:15:29-03:00",
+  "id": "docs",
   "duration": 12,
   "title": "Documentação de APIs com o Readme",
   "summary": "Documentação de APIs com o Readme",
@@ -22,5 +22,5 @@
   ],
   "feedback": "https://github.com/Vaivoa/doc-api-readme/issues",
   "ga": "Google Analytics ID",
-  "url": "doc-api-readme"
+  "url": "docs"
 }

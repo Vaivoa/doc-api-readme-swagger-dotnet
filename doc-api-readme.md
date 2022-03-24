@@ -8,7 +8,7 @@ feedback link: https://github.com/Vaivoa/doc-api-readme/issues
 analytics account: Google Analytics ID
 
 # Documentação de APIs com o Readme
-## Início
+## 1. Antes de Começar
 Duration: 1:28
 
 Já encerrou o desenvolvimento de suas APIs e precisou apresentar os resultados para algumas dessas pessoas? 
@@ -24,14 +24,22 @@ Mas e se você quisesse deixar claro a regra de negócio da sua API? Se fosse do
 
 Aqui temos uma alternativa que facilita a apresentação do backend de maneira mais amigável, possibilita a geração de requisições para seus endpoints em diversas linguagens de programação e ainda fornece métricas sobre a utilização de sua documentação. Essa alternativa chama-se Readme. Nunca ouviu falar? Não tem problema, você vai poder acompanhar o tutorial mesmo assim.
 
-E para isso vamos tratar o assunto em duas abordagens: 
-
-* A primeira é como fazer a publicação da documentação da sua API no Readme manualmente. Aqui vamos usar um projeto open source como exemplo, portanto você vai conseguir seguir o passo a passo para o caso de já ter um projeto pronto.
-* A segunda está voltada para a documentação da API no Readme de um projeto em .NET do zero, aqui vamos ter a possibilidade de usar Github Actions e Azure Pipelines para automatização da publicação da sua documentação.
-
 E aí, ficou animado? Então vamos lá!
 
-## O projeto
+### O que você vai criar
+* Uma documentação no Readme de um projeto .Net do zero totalmente automatizada através de Github Actions ou Azure Pipelines
+
+### O que você vai aprender
+- Configurar o pacote do Swagger no projeto .NET
+- Iniciar o SwaggerCli na solução
+- Documentar no readme
+- Automatizar o processo através da pipeline do Github Actions
+- Automatizar o processo através da pipeline do Azure Pipelines
+
+### O que é necessário
+- Conhecimento básico de .Net e C#
+
+## 2. O projeto
 Duration: 1:14
 
 Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o repositório no Github ‣. Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:

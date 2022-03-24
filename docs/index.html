@@ -22,12 +22,12 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid="Google Analytics ID"
-                  id="doc-api-readme"
+                  id="docs"
                   title="Documentação de APIs com o Readme"
                   environment="web"
                   feedback-link="https://github.com/Vaivoa/doc-api-readme/issues">
     
-      <google-codelab-step label="Início" duration="2">
+      <google-codelab-step label="1. Antes de Começar" duration="2">
         <p>Já encerrou o desenvolvimento de suas APIs e precisou apresentar os resultados para algumas dessas pessoas?</p>
 <ul>
 <li>Cliente;</li>
@@ -38,12 +38,19 @@
 <p class="image-container"><img alt="Swagger da Abordagem 2" src="img\\c7445e10ae0f0890.png"></p>
 <p>Mas e se você quisesse deixar claro a regra de negócio da sua API? Se fosse do seu interesse que quem estivesse fazendo chamadas para sua aplicação entendesse o porquê das coisas? Já sei, você pensaria em criar um blog explicando esses pontos? Ok, compreensível, mas lá do seu blog você permitirá que sejam feitas requisições para sua API?</p>
 <p>Aqui temos uma alternativa que facilita a apresentação do backend de maneira mais amigável, possibilita a geração de requisições para seus endpoints em diversas linguagens de programação e ainda fornece métricas sobre a utilização de sua documentação. Essa alternativa chama-se Readme. Nunca ouviu falar? Não tem problema, você vai poder acompanhar o tutorial mesmo assim.</p>
-<p>E para isso vamos tratar o assunto em duas abordagens:</p>
-<ul>
-<li>A primeira é como fazer a publicação da documentação da sua API no Readme manualmente. Aqui vamos usar um projeto open source como exemplo, portanto você vai conseguir seguir o passo a passo para o caso de já ter um projeto pronto.</li>
-<li>A segunda está voltada para a documentação da API no Readme de um projeto em .NET do zero, aqui vamos ter a possibilidade de usar Github Actions e Azure Pipelines para automatização da publicação da sua documentação.</li>
-</ul>
 <p>E aí, ficou animado? Então vamos lá!</p>
+<h2 is-upgraded>O que você vai criar</h2>
+<ul>
+<li>Uma documentação no Readme de um projeto .Net do zero totalmente automatizada através de Github Actions ou Azure Pipelines</li>
+</ul>
+<h2 is-upgraded>O que você vai aprender</h2>
+<ul>
+<li>Configurar o pacote do Swagger no projeto .NET</li>
+<li>Iniciar o SwaggerCli na solução</li>
+<li>Documentar no readme</li>
+<li>Automatizar o processo através da pipeline do Github Actions</li>
+<li>Automatizar o processo através da pipeline do Azure Pipelines</li>
+</ul>
 
 
       </google-codelab-step>
@@ -214,7 +221,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
       </google-codelab-step>
     
-      <google-codelab-step label="Documentando no Readme" duration="0">
+      <google-codelab-step label="Documentando no Readme" duration="2">
         <p>Efetue o seu cadastro na plataforma aqui, após o registro você pode realizar login e terá acesso a uma página como esta:</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\d08bfd07bdc8a4ed.png"></p>
 <p>Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API</p>
