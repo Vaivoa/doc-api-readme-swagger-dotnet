@@ -1,7 +1,7 @@
 author: VaiVoa
 summary: Documentação de APIs com o Readme
 id: docs
-categories: codelab,markdown
+categories: codelabs,markdown
 environments: Web
 status: Published
 feedback link: https://github.com/Vaivoa/doc-api-readme/issues
@@ -263,12 +263,15 @@ Na próxima imagem irá aparecer diversas opções: github, commandline, url, fi
 No próximo passo iremos abordar a implementação no **Github Actions** e posteriormente uma medotologia para adicionar à **Azure Pipelines**.
 
 ## GitHub Actions
+Se você está usando o **Azure Pipelines** vá para a próxima parte deste guia.
 
 Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.
+
 
 ![alt-text-here](assets/readme-imagem5.png)
 
 Para isso crie, na raiz do projeto, uma pasta com o nome .github e a subpasta workflows. Dentro desta subpasta crie o arquivo readme.yml (o nome tanto faz, desde que a extensão seja .yml ou .yaml) e cole. Neste arquivo, cole o conteúdo que aparece na imagem acima, e você deve ter o resultado como na figura abaixo:
+
 
 ![Estrutura do projeto com configuração de pipeline](assets/readme-imagem6.png)
 
@@ -356,4 +359,21 @@ steps:
   displayName: 'Running rmde cli'
 ```
 
-É isso, a cada push na branch main você terá atualização automática da sua documentação no Readme. Bacana, né?
+Depois disso, a cada push na branch main você terá atualização automática da sua documentação no Readme. 
+
+
+## Conclusão
+Ótimo trabalho! Você aprendeu sobre como documentar uma API .NET no Readme e como é fácil automatizar esta documentação direto na Pipeline do Github ou Azure.
+
+Esperamos você no próximo vaivoa-codelabs.
+
+### Resumo
+- Instale o nu package no seu projeto.
+- Instale a versão correta do SwaggerCli na solução do projeto.
+- Configure o readme.com com através da própria GUI do site.
+- Crie a rotina de automação através da Pipeline do serviço Git preferido.
+
+### Saiba mais
+- [readme.com](https://docs.readme.com/docs/getting-started-with-metrics)
+- [Github Actions](https://docs.github.com/pt/actions)
+- [Azure Pipelines](https://docs.microsoft.com/pt-br/azure/devops/pipelines/?view=azure-devops)

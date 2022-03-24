@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-03-23T22:45:52-03:00",
+  "updated": "2022-03-23T23:04:07-03:00",
   "id": "docs",
   "duration": 12,
   "title": "Documentação de APIs com o Readme",
@@ -14,7 +14,7 @@
     "published"
   ],
   "category": [
-    "codelab",
+    "codelabs",
     "markdown"
   ],
   "tags": [

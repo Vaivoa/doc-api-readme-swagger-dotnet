@@ -241,7 +241,8 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       </google-codelab-step>
     
       <google-codelab-step label="GitHub Actions" duration="0">
-        <p>Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.</p>
+        <p>Se você está usando o <strong>Azure Pipelines</strong> vá para a próxima parte deste guia.</p>
+<p>Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\99ade375b726ea97.png"></p>
 <p>Para isso crie, na raiz do projeto, uma pasta com o nome .github e a subpasta workflows. Dentro desta subpasta crie o arquivo readme.yml (o nome tanto faz, desde que a extensão seja .yml ou .yaml) e cole. Neste arquivo, cole o conteúdo que aparece na imagem acima, e você deve ter o resultado como na figura abaixo:</p>
 <p class="image-container"><img alt="Estrutura do projeto com configuração de pipeline" src="img\\1cabd584d1602f10.png"></p>
@@ -312,7 +313,27 @@ steps:
     rdme openapi --version=v1.0 --key=&lt;Sua Chave No Repositorio Do Readme&gt; --id=61fd6c561242981eca239782
   displayName: &#39;Running rmde cli&#39;
 </code></pre>
-<p>É isso, a cada push na branch main você terá atualização automática da sua documentação no Readme. Bacana, né?</p>
+<p>Depois disso, a cada push na branch main você terá atualização automática da sua documentação no Readme.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusão" duration="0">
+        <p>Ótimo trabalho! Você aprendeu sobre como documentar uma API .NET no Readme e como é fácil automatizar esta documentação direto na Pipeline do Github ou Azure.</p>
+<p>Esperamos você no próximo vaivoa-codelabs.</p>
+<h2 is-upgraded>Resumo</h2>
+<ul>
+<li>Instale o nu package no seu projeto.</li>
+<li>Instale a versão correta do SwaggerCli na solução do projeto.</li>
+<li>Configure o readme.com com através da própria GUI do site.</li>
+<li>Crie a rotina de automação através da Pipeline do serviço Git preferido.</li>
+</ul>
+<h2 is-upgraded>Saiba mais</h2>
+<ul>
+<li><a href="https://docs.readme.com/docs/getting-started-with-metrics" target="_blank">readme.com</a></li>
+<li><a href="https://docs.github.com/pt/actions" target="_blank">Github Actions</a></li>
+<li><a href="https://docs.microsoft.com/pt-br/azure/devops/pipelines/?view=azure-devops" target="_blank">Azure Pipelines</a></li>
+</ul>
 
 
       </google-codelab-step>
