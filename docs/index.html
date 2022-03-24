@@ -41,21 +41,25 @@
 <p>E aí, ficou animado? Então vamos lá!</p>
 <h2 is-upgraded>O que você vai criar</h2>
 <ul>
-<li>Uma documentação no Readme de um projeto .Net do zero totalmente automatizada através de Github Actions ou Azure Pipelines</li>
+<li>Uma documentação no Readme de um projeto .Net totalmente automatizada através de Github Actions ou Azure Pipelines.</li>
 </ul>
 <h2 is-upgraded>O que você vai aprender</h2>
 <ul>
-<li>Configurar o pacote do Swagger no projeto .NET</li>
-<li>Iniciar o SwaggerCli na solução</li>
-<li>Documentar no readme</li>
-<li>Automatizar o processo através da pipeline do Github Actions</li>
-<li>Automatizar o processo através da pipeline do Azure Pipelines</li>
+<li>Configurar o pacote do Swagger no projeto .NET;</li>
+<li>Iniciar o SwaggerCli na solução;</li>
+<li>Documentar no readme;</li>
+<li>Automatizar o processo através da pipeline do Github Actions;</li>
+<li>Automatizar o processo através da pipeline do Azure Pipelines.</li>
+</ul>
+<h2 is-upgraded>O que é necessário</h2>
+<ul>
+<li>Conhecimento básico de .Net e C#</li>
 </ul>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="O projeto" duration="2">
+      <google-codelab-step label="2. O projeto" duration="2">
         <p>Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o repositório no Github ‣. Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:</p>
 <p class="image-container"><img alt="Estrutura de Pastas do Projeto a ser documentado" src="img\\de959f7d5d7c9174.png"></p>
 <p>Temos aqui uma camada de Models onde se encontram as classes Treino e o DTO que será utilizado na requisição. Para fins didáticos utilizamos uma classe TreinoRepository que serve somente para fornecer uma lista de Treinos para os endpoints que se encontram na Camada Controllers. Vamos então ver o que há nos nossos endpoints:</p>

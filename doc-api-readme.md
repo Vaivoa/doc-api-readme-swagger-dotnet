@@ -27,14 +27,14 @@ Aqui temos uma alternativa que facilita a apresentação do backend de maneira m
 E aí, ficou animado? Então vamos lá!
 
 ### O que você vai criar
-* Uma documentação no Readme de um projeto .Net do zero totalmente automatizada através de Github Actions ou Azure Pipelines
+* Uma documentação no Readme de um projeto .Net totalmente automatizada através de Github Actions ou Azure Pipelines.
 
 ### O que você vai aprender
-- Configurar o pacote do Swagger no projeto .NET
-- Iniciar o SwaggerCli na solução
-- Documentar no readme
-- Automatizar o processo através da pipeline do Github Actions
-- Automatizar o processo através da pipeline do Azure Pipelines
+- Configurar o pacote do Swagger no projeto .NET;
+- Iniciar o SwaggerCli na solução;
+- Documentar no readme;
+- Automatizar o processo através da pipeline do Github Actions;
+- Automatizar o processo através da pipeline do Azure Pipelines.
 
 ### O que é necessário
 - Conhecimento básico de .Net e C#
