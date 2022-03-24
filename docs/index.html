@@ -27,7 +27,7 @@
                   environment="web"
                   feedback-link="https://github.com/Vaivoa/doc-api-readme/issues">
     
-      <google-codelab-step label="1. Antes de Começar" duration="2">
+      <google-codelab-step label="Antes de Começar" duration="2">
         <p>Já encerrou o desenvolvimento de suas APIs e precisou apresentar os resultados para algumas dessas pessoas?</p>
 <ul>
 <li>Cliente;</li>
@@ -60,7 +60,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="2. O projeto" duration="2">
+      <google-codelab-step label="O projeto" duration="2">
         <p>Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o <a href="https://github.com/johnvitorconstant/CrescimentoExponencial" target="_blank">repositório no Github.</a> Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:</p>
 <p class="image-container"><img alt="Estrutura de Pastas do Projeto a ser documentado" src="img\\de959f7d5d7c9174.png"></p>
 <p>Temos aqui uma camada de Models onde se encontram as classes Treino e o DTO que será utilizado na requisição. Para fins didáticos utilizamos uma classe TreinoRepository que serve somente para fornecer uma lista de Treinos para os endpoints que se encontram na Camada Controllers. Vamos então ver o que há nos nossos endpoints:</p>
@@ -279,7 +279,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 ...
 </code></pre>
-<p>A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag –key deve ser o mesmo que aparece como readme-oas-key nessa <a href="assets/readme-imagem5.png" target="_blank">imagem</a>. O –id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:</p>
+<p>A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag –key deve ser o mesmo que aparece como readme-oas-key nessa <a href="https://vaivoa.github.io/doc-api-readme/img//99ade375b726ea97.png" target="_blank">imagem</a>. O –id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:</p>
 <pre><code language="language-yaml" class="language-yaml">trigger:
 - main
 

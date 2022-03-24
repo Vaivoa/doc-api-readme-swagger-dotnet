@@ -8,7 +8,7 @@ feedback link: https://github.com/Vaivoa/doc-api-readme/issues
 analytics account: Google Analytics ID
 
 # Documentação de APIs com o Readme
-## 1. Antes de Começar
+## Antes de Começar
 Duration: 1:28
 
 Já encerrou o desenvolvimento de suas APIs e precisou apresentar os resultados para algumas dessas pessoas? 
@@ -40,7 +40,7 @@ E aí, ficou animado? Então vamos lá!
 - Conhecimento básico de .Net e C#.
 - Visual Studio 2019 ou posterior instalado na máquina.
 
-## 2. O projeto
+## O projeto
 Duration: 1:14
 
 Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o [repositório no Github.](https://github.com/johnvitorconstant/CrescimentoExponencial) Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:
@@ -320,7 +320,7 @@ Você pode escolher o template [ASP.NET](http://ASP.NET) que vem com passos nece
 ...
 ```
 
-A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag --key deve ser o mesmo que aparece como readme-oas-key nessa [imagem](assets/readme-imagem5.png). O --id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:
+A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag --key deve ser o mesmo que aparece como readme-oas-key nessa [imagem](https://vaivoa.github.io/doc-api-readme/img//99ade375b726ea97.png). O --id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:
 
 ```yaml
 trigger:
