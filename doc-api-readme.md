@@ -30,19 +30,20 @@ E aí, ficou animado? Então vamos lá!
 * Uma documentação no Readme de um projeto .Net totalmente automatizada através de Github Actions ou Azure Pipelines.
 
 ### O que você vai aprender
-- Configurar o pacote do Swagger no projeto .NET;
-- Iniciar o SwaggerCli na solução;
-- Documentar no readme;
-- Automatizar o processo através da pipeline do Github Actions;
+- Configurar o pacote do Swagger no projeto .NET.
+- Iniciar o SwaggerCli na solução.
+- Documentar no readme.
+- Automatizar o processo através da pipeline do Github Actions.
 - Automatizar o processo através da pipeline do Azure Pipelines.
 
 ### O que é necessário
-- Conhecimento básico de .Net e C#
+- Conhecimento básico de .Net e C#.
+- Visual Studio 2019 ou posterior instalado na máquina.
 
 ## 2. O projeto
 Duration: 1:14
 
-Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o repositório no Github ‣. Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:
+Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o [repositório no Github.](https://github.com/johnvitorconstant/CrescimentoExponencial) Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:
 
 ![Estrutura de Pastas do Projeto a ser documentado](assets/estrutura-do-projeto.png)
 
@@ -247,15 +248,21 @@ Efetue o seu cadastro na plataforma aqui, após o registro você pode realizar l
 
 ![alt-text-here](assets/readme-imagem1.png)
 
-Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API
+Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API:
 
 ![alt-text-here](assets/readme-imagem3.png)
 
-Surgirá a tela abaixo, é só clicar em OpenAPI Upload
+Surgirá a tela abaixo, é só clicar em OpenAPI Upload:
 
 ![alt-text-here](assets/readme-imagem4.png)
 
-### GitHub Actions
+Na próxima imagem irá aparecer diversas opções: github, commandline, url, file:
+
+![alt-text-here](assets/readme-imagem5.png)
+
+No próximo passo iremos abordar a implementação no **Github Actions** e posteriormente uma medotologia para adicionar à **Azure Pipelines**.
+
+## GitHub Actions
 
 Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.
 
@@ -281,5 +288,72 @@ No campo Name digite README_OAS_KEY e no campo Value cole o valor da chave que a
 
 Altere o nome da branch no arquivo readme.yml para os nomes das suas branches no Github, nesse nosso caso, ao se fazer um push na branch criando-pipeline para o repositório remoto, copiaremos automaticamente o arquivo swagger.json para nosso projeto no Readme.
 
-### Azure Pipelines
+## Azure Pipelines
 E se você estiver usando o Azure DevOps e quiser fazer a publicação da documentação pelo Azure Pipelines? Não há com o que se preocupar, vamos ver como essa tarefa também pode ser simplificada.
+
+Admitindo que você já está com seu repositório criado, crie uma `Pipeline`:
+
+![CrescimentoExponencial.PNG](assets/azure1.png)
+
+Informe onde está o seu código, nesse caso, apenas como exemplo utilizamos o próprio repositório do Azure DevOps:
+
+![CrescimentoExponencial.PNG](assets/azure2.png)
+
+Em seguida escolha o repositório desejado. Será fornecida uma lista de opções de templates de arquivos yml: 
+
+![CrescimentoExponencial.PNG](assets/azure3.png)
+
+Você pode escolher o template [ASP.NET](http://ASP.NET) que vem com passos necessários para build e teste, ou usar a opção Existing Azure Pipelines YAML file. Independentemente do template que você escolher será necessário incluir os seguintes passos, após o estágio de build
+
+```yaml
+...
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+
+- script: |
+    npm install rdme@latest -g
+    rdme openapi --version=v1.0 --key=<Sua Chave No Repositorio Do Readme> --id=61fd6c561242981eca239782
+  displayName: 'Running rmde cli'
+
+...
+```
+
+A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag --key deve ser o mesmo que aparece como readme-oas-key nessa [imagem](assets/readme-imagem5.png). O --id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+  displayName: 'Restore Nuget Packages'
+ 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--no-restore'
+  displayName: 'Build projects'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+
+- script: |
+    npm install rdme@latest -g
+    rdme openapi --version=v1.0 --key=<Sua Chave No Repositorio Do Readme> --id=61fd6c561242981eca239782
+  displayName: 'Running rmde cli'
+```
+
+É isso, a cada push na branch main você terá atualização automática da sua documentação no Readme. Bacana, né?

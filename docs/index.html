@@ -45,22 +45,23 @@
 </ul>
 <h2 is-upgraded>O que você vai aprender</h2>
 <ul>
-<li>Configurar o pacote do Swagger no projeto .NET;</li>
-<li>Iniciar o SwaggerCli na solução;</li>
-<li>Documentar no readme;</li>
-<li>Automatizar o processo através da pipeline do Github Actions;</li>
+<li>Configurar o pacote do Swagger no projeto .NET.</li>
+<li>Iniciar o SwaggerCli na solução.</li>
+<li>Documentar no readme.</li>
+<li>Automatizar o processo através da pipeline do Github Actions.</li>
 <li>Automatizar o processo através da pipeline do Azure Pipelines.</li>
 </ul>
 <h2 is-upgraded>O que é necessário</h2>
 <ul>
-<li>Conhecimento básico de .Net e C#</li>
+<li>Conhecimento básico de .Net e C#.</li>
+<li>Visual Studio 2019 ou posterior instalado na máquina.</li>
 </ul>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="2. O projeto" duration="2">
-        <p>Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o repositório no Github ‣. Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:</p>
+        <p>Eu sei, eu sei você já está ansioso para aprender como documentar sua API, mas vamos primeiro falar sobre o projeto que utilizamos para documentação. Trata-se de uma Web API em .NET Core 5, você pode acessar o <a href="https://github.com/johnvitorconstant/CrescimentoExponencial" target="_blank">repositório no Github.</a> Como o foco desse tutorial é utilizar o readme.io, vamos passar brevemente sobre a estrutura do projeto:</p>
 <p class="image-container"><img alt="Estrutura de Pastas do Projeto a ser documentado" src="img\\de959f7d5d7c9174.png"></p>
 <p>Temos aqui uma camada de Models onde se encontram as classes Treino e o DTO que será utilizado na requisição. Para fins didáticos utilizamos uma classe TreinoRepository que serve somente para fornecer uma lista de Treinos para os endpoints que se encontram na Camada Controllers. Vamos então ver o que há nos nossos endpoints:</p>
 <pre><code language="language-csharp" class="language-csharp">[ApiController]
@@ -228,12 +229,19 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       <google-codelab-step label="Documentando no Readme" duration="2">
         <p>Efetue o seu cadastro na plataforma aqui, após o registro você pode realizar login e terá acesso a uma página como esta:</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\d08bfd07bdc8a4ed.png"></p>
-<p>Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API</p>
+<p>Para criar um projeto é só clicar no botão + New Project, e agora é só preencher o formulário com o nome do projeto e clicar em Create. Podemos então fazer o upload do nosso json para a plataforma e estará tudo devidamente documentado. Na tela seguinte navegue para Import Your API:</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\1d424ba4cd995e42.png"></p>
-<p>Surgirá a tela abaixo, é só clicar em OpenAPI Upload</p>
+<p>Surgirá a tela abaixo, é só clicar em OpenAPI Upload:</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\2774f986bc5756fa.png"></p>
-<h2 is-upgraded>GitHub Actions</h2>
-<p>Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.</p>
+<p>Na próxima imagem irá aparecer diversas opções: github, commandline, url, file:</p>
+<p class="image-container"><img alt="alt-text-here" src="img\\99ade375b726ea97.png"></p>
+<p>No próximo passo iremos abordar a implementação no <strong>Github Actions</strong> e posteriormente uma medotologia para adicionar à <strong>Azure Pipelines</strong>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="GitHub Actions" duration="0">
+        <p>Entre as opções de formas de realizar o upload, vamos dar destaque ao Github Actions, ainda que você nunca tenha criado uma pipeline antes, para a finalidade de usar essa ferramenta, você não precisa se preocupar pois você tem somente que copiar e colar o código que eles exibem na tela para um arquivo yaml.</p>
 <p class="image-container"><img alt="alt-text-here" src="img\\99ade375b726ea97.png"></p>
 <p>Para isso crie, na raiz do projeto, uma pasta com o nome .github e a subpasta workflows. Dentro desta subpasta crie o arquivo readme.yml (o nome tanto faz, desde que a extensão seja .yml ou .yaml) e cole. Neste arquivo, cole o conteúdo que aparece na imagem acima, e você deve ter o resultado como na figura abaixo:</p>
 <p class="image-container"><img alt="Estrutura do projeto com configuração de pipeline" src="img\\1cabd584d1602f10.png"></p>
@@ -245,8 +253,66 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 <p>No campo Name digite README_OAS_KEY e no campo Value cole o valor da chave que aparece no seu arquivo readme.yml, agora clique em Add Secret e está feito. Se estiver achando confuso, nessa página clique em Public Repo? E o arquivo já virá configurado para usar Secrets.</p>
 <h3 is-upgraded>🚨 ATENÇÃO 🚨</h3>
 <p>Altere o nome da branch no arquivo readme.yml para os nomes das suas branches no Github, nesse nosso caso, ao se fazer um push na branch criando-pipeline para o repositório remoto, copiaremos automaticamente o arquivo swagger.json para nosso projeto no Readme.</p>
-<h2 is-upgraded>Azure Pipelines</h2>
-<p>E se você estiver usando o Azure DevOps e quiser fazer a publicação da documentação pelo Azure Pipelines? Não há com o que se preocupar, vamos ver como essa tarefa também pode ser simplificada.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Azure Pipelines" duration="0">
+        <p>E se você estiver usando o Azure DevOps e quiser fazer a publicação da documentação pelo Azure Pipelines? Não há com o que se preocupar, vamos ver como essa tarefa também pode ser simplificada.</p>
+<p>Admitindo que você já está com seu repositório criado, crie uma <code>Pipeline</code>:</p>
+<p class="image-container"><img alt="CrescimentoExponencial.PNG" src="img\\139f3a47c8804478.png"></p>
+<p>Informe onde está o seu código, nesse caso, apenas como exemplo utilizamos o próprio repositório do Azure DevOps:</p>
+<p class="image-container"><img alt="CrescimentoExponencial.PNG" src="img\\4de486f919cd1761.png"></p>
+<p>Em seguida escolha o repositório desejado. Será fornecida uma lista de opções de templates de arquivos yml:</p>
+<p class="image-container"><img alt="CrescimentoExponencial.PNG" src="img\\16b089dbc67a3636.png"></p>
+<p>Você pode escolher o template <a href="http://ASP.NET" target="_blank">ASP.NET</a> que vem com passos necessários para build e teste, ou usar a opção Existing Azure Pipelines YAML file. Independentemente do template que você escolher será necessário incluir os seguintes passos, após o estágio de build</p>
+<pre><code language="language-yaml" class="language-yaml">...
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: &#39;16.x&#39;
+
+- script: |
+    npm install rdme@latest -g
+    rdme openapi --version=v1.0 --key=&lt;Sua Chave No Repositorio Do Readme&gt; --id=61fd6c561242981eca239782
+  displayName: &#39;Running rmde cli&#39;
+
+...
+</code></pre>
+<p>A Task NodeTool@0 é necessária para usarmos o gerenciador de pacotes npm e instalar a CLI do Readme. O valor da flag –key deve ser o mesmo que aparece como readme-oas-key nessa <a href="assets/readme-imagem5.png" target="_blank">imagem</a>. O –id é somente para identificar as alterações que você está fazendo no swagger.json, esse valor é arbitrário. Caso queira conferir como seria o arquivo inteiro, dá uma olhada aqui:</p>
+<pre><code language="language-yaml" class="language-yaml">trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: &#39;Release&#39;
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: &#39;restore&#39;
+    projects: &#39;**/*.csproj&#39;
+  displayName: &#39;Restore Nuget Packages&#39;
+ 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: &#39;build&#39;
+    projects: &#39;**/*.csproj&#39;
+    arguments: &#39;--no-restore&#39;
+  displayName: &#39;Build projects&#39;
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: &#39;16.x&#39;
+
+- script: |
+    npm install rdme@latest -g
+    rdme openapi --version=v1.0 --key=&lt;Sua Chave No Repositorio Do Readme&gt; --id=61fd6c561242981eca239782
+  displayName: &#39;Running rmde cli&#39;
+</code></pre>
+<p>É isso, a cada push na branch main você terá atualização automática da sua documentação no Readme. Bacana, né?</p>
 
 
       </google-codelab-step>
