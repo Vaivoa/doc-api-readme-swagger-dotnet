@@ -7,7 +7,7 @@ status: Published
 feedback link: https://github.com/Vaivoa/doc-api-readme/issues
 analytics account: Google Analytics ID
 
-# Documentação de APIs .Net com o Readme
+# Readme: Documentação de APIs .Net do zero.
 ## Antes de Começar
 Duration: 1:28
 
